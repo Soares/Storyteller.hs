@@ -1,0 +1,24 @@
+Name:          storyteller
+Version:       0.0.0
+License:       MIT
+License-file:  LICENSE
+Category:      Writing, Wiki
+Synopsis:      A language for writing books.
+Description:   Provides a language for writing books, a parser for reading the
+               language, and a number of writers for writing out book data,
+               including PDF, EPUB, TODOs, wiki links, timelines, and so on.
+Author:        Nate Soares
+Maintainer:    nate@so8r.es
+Build-Type:    Simple
+Cabal-Version: >=1.6
+
+Library
+  Build-Depends:
+    base >= 4 && < 5,
+    parsec >= 3.1.1
+  Exposed-modules:
+    Storyteller.Definition,
+    Storyteller.Reader
+  Hs-Source-Dirs:   src
+  Ghc-Options:      -Wall -rtsopts
+  Ghc-Prof-Options: -auto-all
