@@ -5,12 +5,13 @@ module Storyteller.Definition
     , Directive(..)
     , Inline(..)
     , Block(..)
+    , File(..)
     ) where
 
 data Control
     = Break
     | Rule
-    deriving Show
+    deriving (Eq, Enum, Show)
 
 data Formatter
     = Italic
@@ -20,7 +21,7 @@ data Formatter
     | Superscript
     | Comment
     | Header
-    deriving Show
+    deriving (Eq, Enum, Show)
 
 data Operator
     = Include
@@ -30,13 +31,13 @@ data Operator
     | Code
     | Quote
     | Math
-    deriving Show
+    deriving (Eq, Enum, Show)
 
 data Directive
     = Tag
     | Mode
     | Footnote
-    deriving Show
+    deriving (Eq, Enum, Show)
 
 data Inline
     = Str String
@@ -49,3 +50,9 @@ data Block
     = Ctl Control
     | Par [Inline]
     deriving Show
+
+
+data File = File
+    { name   :: String
+    , blocks :: [Block]
+    } deriving Show
