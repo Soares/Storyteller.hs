@@ -76,6 +76,7 @@ renderInlines :: (Renderer r, Base m)
     -> Render r m
 renderInlines = (joinSentences =<<) .: mapM
 
+
 renderBlocks :: (Renderer r, Base m)
     => (Block -> Render r m)
     -> [Block]
