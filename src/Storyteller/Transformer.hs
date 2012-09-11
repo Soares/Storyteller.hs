@@ -1,25 +1,27 @@
+{-# LANGUAGE MultiParamTypeClasses #-}
 module Storyteller.Transformer where
 import Control.Applicative
-import Control.Monad ( mapM )
-import Control.Monad.State ( StateT )
+import Control.Monad.Reader ( ReaderT, runReaderT )
+import Control.Monad.State ( StateT, runStateT )
+import Control.Monad.Trans ( lift )
 import Storyteller.Definition
-import Storyteller.Renderer ( Renderer )
+import Storyteller.Builder ( Builder )
+import qualified Storyteller.Builder as Builder
+import Storyteller.Renderer ( Renderer, renderWith, renderBlock, renderInline )
+import qualified Storyteller.Renderer as Renderer
 
-class Renderer t => Transformer t where
-    control :: Control -> StateT t IO String
-    format :: Formatter -> [Inline] -> StateT t IO String
-    operate :: Operator -> [[Inline]] -> StateT t IO String
-    direct :: Directive -> [Inline] -> [Block] -> StateT t IO String
+type Story r b = ReaderT r (StateT b IO) String
 
-    inline :: Inline -> StateT t IO String
-    inline (Str str) = pure str
-    inline (Fmt f xs) = format f xs
-    inline (Opr o xs) = operate o xs
-    inline (Dir d xs ys) = direct d xs ys
+transform :: (Renderer r, Builder b) => File -> Story r b
+transform = renderWith block
 
-    block :: Block -> StateT t IO String
-    block (Ctl c) = control c
-    block (Par p) = unwords <$> mapM inline p
+tell :: (Renderer r, Builder b) => r -> b -> File -> IO (String, b)
+tell config init file =
+    let maker = runReaderT (transform file) config
+    in runStateT maker init
 
-    transform :: File -> StateT t IO String
-    transform = fmap unlines . mapM block . blocks
+block :: (Renderer r, Builder b) => Block -> Story r b
+block b = lift (Builder.block b) *> renderBlock inline b
+
+inline :: (Renderer r, Builder b) => Inline -> Story r b
+inline i = lift (Builder.inline i) *> renderInline inline block i

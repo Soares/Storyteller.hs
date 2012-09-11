@@ -11,7 +11,7 @@ module Storyteller.Symbols
 import Storyteller.Definition
 
 sep, esc, dash :: Char
-sep = '/'
+sep = '|'
 esc = '\\'
 dash = '-'
 
@@ -30,13 +30,13 @@ formatters =
     , ('^', Superscript)
     , ('~', Subscript)
     , ('#', Comment)
+    , ('|', Character)
     , ('=', Header)
     ]
 
 operators :: [(Char, Operator)]
 operators =
-    [ ('|', Character)
-    , ('@', Time)
+    [ ('@', Time)
     , ('%', Place)
     , ('`', Code)
     , ('+', Quote)

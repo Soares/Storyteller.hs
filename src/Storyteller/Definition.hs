@@ -53,6 +53,6 @@ data Block
 
 
 data File = File
-    { name   :: String
-    , blocks :: [Block]
+    { name       :: String
+    , paragraphs :: [Block]
     } deriving Show
