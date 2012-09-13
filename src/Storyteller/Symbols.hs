@@ -5,15 +5,17 @@ module Storyteller.Symbols
     , sep
     , esc
     , dash
+    , star
     , notInline
     , notOperator
     ) where
 import Storyteller.Definition
 
-sep, esc, dash :: Char
-sep = '/'
+sep, esc, dash, star :: Char
+sep = '|'
 esc = '\\'
 dash = '-'
+star = '*'
 
 directives :: [(Char, Char, Directive)]
 directives =
@@ -35,8 +37,8 @@ formatters =
 
 operators :: [(Char, Operator)]
 operators =
-    [ ('|', Character)
-    , ('@', Time)
+    [ ('@', Time)
+    , ('|', Character)
     , ('%', Place)
     , ('`', Code)
     , ('+', Quote)
