@@ -1,6 +1,4 @@
 # Hashes denote a scene header.
-## The number of leading hashes denotes the header level.
-### For aesthetic purposes, trailing hashes are ignored ########################
 = @Tag #cat1 #cat2
 + @Character @Item @Etc
 % @Place @Parent @SuperParent
@@ -9,10 +7,9 @@
 & Scenes can have #headers, =declarations, +appearances, %places, @times, and,
 & of course, &notes.
 & All these annotations will be combined into a scene block.
-& So long as your headers are increasing sequentially in depth, they are
-& all part of the same scene (as above). If there are blank lines between them
-& or if they do not progress sequentially, they are different scenes.
-& No single attribution is required to start a scene, any may be omitted.
+& No single attribution is required to start a scene; any may be omitted.
+& #headers are a plain text header/name for the scene
+&  Whether or not it shows up depends upon your renderer.
 & =declarations are followed by at most one hash tag and a list of categories.
 &  this allows the scene to be referenced later.
 & +appearances are followed by a list of hash tags of characters, items, etc.
@@ -72,7 +69,7 @@ There are three types of comments:
 # Advanced Options #############################################################
 
 {+ you/may/include/files/with | pipe | separated | arguments +}
-How different file types are treated is implementation dependant.
+File type treatment, path expansion, and so on are all implementation dependant.
 
 
 You may make assertions. For example, we could assert that
