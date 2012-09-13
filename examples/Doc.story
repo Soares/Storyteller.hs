@@ -1,28 +1,30 @@
-#     Headers are denoted by hashes      #
-##  The number of hashes denotes level  ##
-### Only leading hashes count. ###########
-#### You can even leave them off entirely.
-################## Depth can be arbitrary,
-########## if your renderer supports it. #
-
+# Hashes denote a scene header.
+## The number of leading hashes denotes the header level.
+### For aesthetic purposes, trailing hashes are ignored ########################
 = @Tag #cat1 #cat2
 + @Character @Item @Etc
 % @Place @Parent @SuperParent
-@ Date/time expression as supported
-& This is how you start scenes off.
-& All annotations start with a symbol at the very beginning of a line.
-& - The = symbol declares the scene (with a tag and a list of categories),
-&   allowing the scene to be referenced later.
-& - The + symbol declares what characters and items are present.
-&   This allows us to do consistency checks.
-& - The % symbol declares the place in a hierarchical list.
-&   Such place annotations will be used to build the map.
-& - The @ symbol allows you to enter a date/time expression (single moment or
-&   range) as defined by your renderer.
-& Finally, the & allows you to enter scene-relevant text and notes.
+@ Date/time expression if supported
+& This block of text denotes a scene.
+& Scenes can have #headers, =declarations, +appearances, %places, @times, and,
+& of course, &notes.
+& All these annotations will be combined into a scene block.
+& So long as your headers are increasing sequentially in depth, they are
+& all part of the same scene (as above). If there are blank lines between them
+& or if they do not progress sequentially, they are different scenes.
+& No single attribution is required to start a scene, any may be omitted.
+& =declarations are followed by at most one hash tag and a list of categories.
+&  this allows the scene to be referenced later.
+& +appearances are followed by a list of hash tags of characters, items, etc.
+&  that are present in the scene, allowing for consistency checks.
+& %places are followed by a hierarchical list of places, used to make the map.
+&  (i.e. % @WashingtonDC @UnitedStates)
+& @times are parsed by your chosen date/time parser, if supported. They may
+&  support a range or a single moment, depending upon your parser.
+& Finally, &notes allow you to enter scene-relevant text and notes.
 & Formatting /is/ permitted within notes.
 
-# Formatting includes ####################
+# Text Formatting ##############################################################
 
 /italic/
 *bold*
@@ -38,10 +40,16 @@ $math$
 - attribution
 
 Three or more stars, separated by zero or more spaces, denote a horizontal rule:
+
 * * * *
 
-Three blank lines or dashes separated as above denote an unruled line break:
+Dashes separated as above denote an unruled line break:
+
 - - - -
+
+Three blank lines not followed by a new scene also denote an unruled line break:
+
+
 
 All special characters can be \*escaped\*.
 
@@ -52,7 +60,7 @@ start a block quote, you can start the new line with
 
 - - - -
 
-# Comments ###############################
+# Comments and Notes ###########################################################
 
 There are three types of comments:
 {! TODOS which get recorded in a TODO file in your wiki !}
@@ -61,7 +69,7 @@ There are three types of comments:
    completely stripped and ignored from your text. #}
 
 
-# Advanced Options #######################
+# Advanced Options #############################################################
 
 {+ you/may/include/files/with | pipe | separated | arguments +}
 How different file types are treated is implementation dependant.
