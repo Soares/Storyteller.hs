@@ -12,8 +12,9 @@ linebreak :: GenParser Char st Control
 linebreak = newline *> eol *> pure Break
 
 rule :: GenParser Char st Control
-rule = d *> d *> many1 d *> eol *> pure Rule where
-    d = char dash *> many (oneOf " \t")
+rule = try (threeOf dash) <|> (threeOf star) where
+    threeOf c = mark c *> mark c *> many1 (mark c) *> eol *> pure Rule
+    mark c = many space *> char c <* many space
 
 formatter :: GenParser Char st Inline
 formatter = choice (map make formatters) where
